@@ -85,7 +85,7 @@ process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
 app.get("/hy",(req,res)=>{
-  res.send("hello");
+  res.send("hellos");
 })
 
 app.get("/",(req,res)=>{
