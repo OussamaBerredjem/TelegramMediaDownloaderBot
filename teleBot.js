@@ -84,4 +84,12 @@ bot.launch();
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
+app.get("/hy",(req,res)=>{
+  res.send("hello");
+})
+
+app.get("/",(req,res)=>{
+  res.send("hy");
+})
+
 app.listen(port,()=>console.log("connected"))
