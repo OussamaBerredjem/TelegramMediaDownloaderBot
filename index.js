@@ -83,11 +83,8 @@ bot.on('message', async (ctx) => {
     
 })
 
-bot.telegram.setWebhook(`https://localhost:3000/bot${bot.token}`);
 
-app.post(`/bot${bot.token}`, (req, res) => {
-  bot.handleUpdate(req.body, res);
-});
+
 
 bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 bot.launch();
