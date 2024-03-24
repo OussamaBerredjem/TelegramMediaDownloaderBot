@@ -7,7 +7,7 @@ const app = express()
 
 
 
-const bot = new Telegraf("7101365233:AAFqlJiNNwksrIFPZBCMqwcsDy-1wmtJhkc")
+const bot = new Telegraf("API_KEY")
 
 
 const port = 3000||process.env.PORT;
@@ -21,7 +21,7 @@ const port = 3000||process.env.PORT;
         url: 'https://social-download-all-in-one.p.rapidapi.com/v1/social/autolink',
         headers: {
           'content-type': 'application/json',
-          'X-RapidAPI-Key': 'f717a9a210msh463ba705e0514cep14ac7cjsn9e23ecc29bf6',
+          'X-RapidAPI-Key': 'API_KEY',
           'X-RapidAPI-Host': 'social-download-all-in-one.p.rapidapi.com'
         },
         data: {
