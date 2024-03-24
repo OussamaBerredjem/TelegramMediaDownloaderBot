@@ -7,10 +7,10 @@ const app = express()
 
 
 
-const bot = new Telegraf("API_KEY")
+const bot = new Telegraf("7101365233:AAFqlJiNNwksrIFPZBCMqwcsDy-1wmtJhkc")
 
 
-const port = 443||process.env.PORT;
+const port = 3000||process.env.PORT;
 
 
   
@@ -21,7 +21,7 @@ const port = 443||process.env.PORT;
         url: 'https://social-download-all-in-one.p.rapidapi.com/v1/social/autolink',
         headers: {
           'content-type': 'application/json',
-          'X-RapidAPI-Key': 'API_KEY',
+          'X-RapidAPI-Key': 'f717a9a210msh463ba705e0514cep14ac7cjsn9e23ecc29bf6',
           'X-RapidAPI-Host': 'social-download-all-in-one.p.rapidapi.com'
         },
         data: {
@@ -65,9 +65,24 @@ bot.on('message', async (ctx) => {
 
         const respo = await get(message);
 
-
-        bot.telegram.editMessageText(ctx.chat.id,replyMsg.message_id,null,"Author : "+respo['author']+"\nTitle : "+respo['title']);
-        ctx.replyWithVideo(respo['link']);
+        await bot.telegram.editMessageText(ctx.chat.id,replyMsg.message_id,null,"Author : "+respo['author']+"\nTitle : "+respo['title']);
+        const button = {
+          text: "Share with Friends", // Add the "text" property here
+          url: "https://telegram.me/share/"+respo['link'] // Replace with actual video link
+        };
+           
+      // Create an inline keyboard with the share button
+      const keyboard = [
+        [
+          button
+        ]
+      ];
+      
+      
+      // Send the video with the caption and the inline keyboard
+      ctx.sendVideo(respo['link'] , {
+        reply_markup: { inline_keyboard: keyboard }
+      });
      }else{
         ctx.reply("send a valid link")
      }
