@@ -7,10 +7,10 @@ const app = express()
 
 
 
-const bot = new Telegraf("API_KEY")
+const bot = new Telegraf("7101365233:AAFqlJiNNwksrIFPZBCMqwcsDy-1wmtJhkc")
 
 
-const port = 3000||process.env.PORT;
+const port = 443||process.env.PORT;
 
 
   
@@ -21,7 +21,7 @@ const port = 3000||process.env.PORT;
         url: 'https://social-download-all-in-one.p.rapidapi.com/v1/social/autolink',
         headers: {
           'content-type': 'application/json',
-          'X-RapidAPI-Key': 'API_KEY',
+          'X-RapidAPI-Key': 'f717a9a210msh463ba705e0514cep14ac7cjsn9e23ecc29bf6',
           'X-RapidAPI-Host': 'social-download-all-in-one.p.rapidapi.com'
         },
         data: {
@@ -47,20 +47,22 @@ bot.start((ctx) => ctx.reply('Welcome'));
 bot.help((ctx) => ctx.reply('Send me a sticker'));
 
 bot.on('message', async (ctx) => {
-    const idChat = ctx.chat.id;
-    const message = ctx.message.text;
     
+    if( ctx.message.text){
 
     try{
+
+      const message = ctx.message.text;
+
         var replyMsg;
 
-        if(message.includes("https://")&&message.includes("www")&&message.includes(".com")&&(message.includes("facebook")||message.includes("tiktok")||message.includes("youtube")||message.includes("instagram"))){
+        if(message.includes("https://")&&(message.includes("www")||message.includes("vm"))&&message.includes(".com")&&(message.includes("facebook")||message.includes("tiktok")||message.includes("youtube")||message.includes("instagram"))){
        
          replyMsg = await ctx.reply("uploading ...");
 
         const respo = await get(message);
 
-        await ctx.deleteMessage(replyMsg.message_id);
+        await ctx.deleteMessage(replyMsg.mess);
 
         ctx.reply("Author : "+respo['author']+"\nTitle : "+respo['title']);
         ctx.replyWithVideo(respo['link']);
@@ -71,12 +73,21 @@ bot.on('message', async (ctx) => {
     }catch(error){
         await ctx.deleteMessage(replyMsg.message_id);
 
-        ctx.reply("error uploading");
+        ctx.reply("unknown error");
+
+    }}else{
+      ctx.reply("error send a link message");
 
     }
 
     
 })
+
+bot.telegram.setWebhook(`https://localhost:3000/bot${bot.token}`);
+
+app.post(`/bot${bot.token}`, (req, res) => {
+  bot.handleUpdate(req.body, res);
+});
 
 bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 bot.launch();
@@ -89,6 +100,10 @@ app.get("/hy",(req,res)=>{
 })
 
 app.get("/",(req,res)=>{
+  res.send("hy");
+})
+
+app.head("/head",(req,res)=>{
   res.send("hy");
 })
 
